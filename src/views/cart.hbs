@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <style>
+    td, th {
+        border: 2px solid black; 
+        padding: 5px;
+    }
+</style>
+    <h1>Products in cart:</h1>
+    <table id="products-container"></table>
+
+    {{#each products}}
+        <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.quantity}}</td>
+        </tr>
+    {{/each}}
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/cart.js"></script>
+</html>

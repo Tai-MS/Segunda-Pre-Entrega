@@ -1,0 +1,102 @@
+[
+  {
+    "title": "Samsung S24",
+    "description": "Ultimo celular de Samsung",
+    "code": "sms24",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "celular",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Google Pixel 4",
+    "description": "Ultimo celular de Google",
+    "code": "gopx4",
+    "price": 800,
+    "status": true,
+    "stock": 10,
+    "category": "celular",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "RTX 2060",
+    "description": "Placa de video",
+    "code": "rt2060",
+    "price": 900,
+    "status": true,
+    "stock": 5,
+    "category": "Tarjeta Grafica",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "RTX3060",
+    "description": "Placa de video",
+    "code": "rt3060",
+    "price": 400,
+    "status": true,
+    "stock": 20,
+    "category": "Tarjeta Grafica",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Intel I5-14900k",
+    "description": "Procesador Intel",
+    "code": "in14k",
+    "price": 500,
+    "status": true,
+    "stock": 3,
+    "category": "procesador",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Monitor LG",
+    "description": "Monitor 144hz",
+    "code": "lg144",
+    "price": 350,
+    "status": true,
+    "stock": 20,
+    "category": "monitor",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Teclado Logitech G513",
+    "description": "Teclado Logitech",
+    "code": "log513",
+    "price": 150,
+    "status": true,
+    "stock": 5,
+    "category": "teclado",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Mouse Logitech",
+    "description": "Mouse Logitech",
+    "code": "mslg",
+    "price": 200,
+    "status": true,
+    "stock": 100,
+    "category": "mouse",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Mousepad",
+    "description": "Mousepad",
+    "code": "msp",
+    "price": 30,
+    "status": true,
+    "stock": 100,
+    "category": "mousepad",
+    "thumbnail": "No image"
+  },
+  {
+    "title": "Mouse Razer Viper",
+    "description": "Mouse Razer Viper",
+    "code": "msrzv",
+    "price": 100,
+    "status": true,
+    "stock": 10,
+    "category": "mouse",
+    "thumbnail": "No image"
+  }
+]

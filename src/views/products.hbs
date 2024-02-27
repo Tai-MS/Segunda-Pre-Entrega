@@ -1,0 +1,85 @@
+<h1>Products: </h1>
+<style>
+    td, th {
+        border: 2px solid black; 
+        padding: 5px;
+    }
+</style>
+<table id="products-container"></table>
+
+<form id="selectedCart">
+    <label for="cId">Cart ID: </label>
+    <input type="text" name="cId" id="cId">
+    <button type="button">Check</button>
+</form>
+
+<div>
+    <button type="button" id="prev" >Prev</button>
+    <button type="button" id="next">Next</button>
+</div>
+
+<form id="add-product">
+    <h2>Add product</h2>
+
+    <div class="form-field">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" >
+    </div>
+
+    <div class="form-field">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" >
+    </div>
+
+    <div class="form-field">
+        <label for="code">Code</label>
+        <input type="text" name="code" id="code" >
+    </div>
+
+    <div class="form-field">
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price" >
+    </div>
+
+    <div class="form-field">
+        <label for="status">Select the status:</label>
+        <select id="status" name="status">
+            <option value="true">true</option>
+            <option value="false">false</option>
+        </select>
+    </div>
+
+
+    <div class="form-field">
+        <label for="stock">Stock</label>
+        <input type="number" name="stock" id="stock" >
+    </div>
+
+    <div class="form-field">
+        <label for="category">Category</label>
+        <input type="text" name="category" id="category" >
+    </div>
+
+    <div class="form-field">
+    <label for="thumbnail">Thumbnail</label>
+    <input type="text" name="thumbnail" id="thumbnail">
+</div>
+
+    <button type="submit">Send</button>
+</form>
+
+<form id="remove-product">
+    <h2>Remove product</h2>
+
+    <div class="form-field">
+        <label for="id">Id</label>
+        <input type="text" name="id" id="id" >
+    </div>
+
+    <button type="submit">Send</button>
+</form>
+
+<div class="response-container" id="response-container"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>
