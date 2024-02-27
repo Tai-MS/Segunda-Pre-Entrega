@@ -25,7 +25,6 @@ router.post('/', async(req, res) => {
     res.send(response)
 })
 
-//Actualiza la DB agregando el producto al carrito
 router.put('/:cid/products/:pid', async(req, res) => {
     let response = await cartsManager.addProductToCart(req.params.cid, req.params.pid, req.body.add)
     res.send(response)

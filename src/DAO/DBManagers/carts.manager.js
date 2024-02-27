@@ -55,15 +55,16 @@ class CartsManager {
             if (!cart) {
                 return 'Cart not found';
             }
-    
-            const productIds = Object.values(productsArr);
+            console.log(productsArr[['products']]);
+            const productIds = Object.values(productsArr['products']);
             await Promise.all(productIds.map(async (productId) => {
-                const productExist = await productModel.findById(productId);
+                console.log(productId['product']);
+                const productExist = await productModel.findById(productId['product']);
                 if (!productExist) {
-                    notFoundArr.push(productId);
+                    notFoundArr.push(productId['product']);
                 }
                 
-                await this.addProductToCart(cid, productId);
+                await this.addProductToCart(cid, productId['product'], productId["quantity"]);
                 
             }));
             if(notFoundArr.length > 0){
