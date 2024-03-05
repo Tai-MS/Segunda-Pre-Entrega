@@ -1,7 +1,7 @@
 const socket = io();
 
 const currentUrl = window.location.href;
-const cidMatch = currentUrl.match(/\/api\/carts\/cart\/([^\/]+)/);
+const cidMatch = currentUrl.match(/\/cart\/([^\/]+)/);
 
 if (cidMatch && cidMatch[1]) {
     const cid = cidMatch[1];
@@ -14,7 +14,6 @@ if (cidMatch && cidMatch[1]) {
 } else {
     console.log('No se encontró el cid en la URL.');
 }
-console.log(cidMatch);
 socket.emit('getCartByIdResponse', cidMatch)
 
 function updateTable(response) {
@@ -22,8 +21,6 @@ function updateTable(response) {
 
     if (response && response.cartProducts && Array.isArray(response.cartProducts)) {
         const products = response.cartProducts;
-
-        console.log(products); // Verifica que products tenga los datos esperados
 
         const tableContainer = document.getElementById('products-container');
         tableContainer.innerHTML = ''; 

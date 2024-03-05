@@ -37,10 +37,8 @@ class CartsManager {
         try {
             const cart = await cartModel.findById(cid).populate('cartProducts.productId');
             if(cart){
-                console.log(cart);
                 return cart
             }else{
-                console.log("hola");
                 return 'Cart not found'
             }
         } catch (error) {
@@ -55,10 +53,8 @@ class CartsManager {
             if (!cart) {
                 return 'Cart not found';
             }
-            console.log(productsArr[['products']]);
             const productIds = Object.values(productsArr['products']);
             await Promise.all(productIds.map(async (productId) => {
-                console.log(productId['product']);
                 const productExist = await productModel.findById(productId['product']);
                 if (!productExist) {
                     notFoundArr.push(productId['product']);
@@ -116,10 +112,8 @@ class CartsManager {
             }
     
             const productIndex = cart.cartProducts.findIndex((element) => element.productId.toString() === pid);
-            console.log(productIndex);
             if (productIndex !== -1) {
                 const productTitle = await productModel.findOne({ _id: pid })
-                console.log(productTitle.title);
                 const productQuantity = cart.cartProducts[productIndex].quantity;
                 if (productQuantity > 1) {
                     cart.cartProducts[productIndex].quantity -= 1;

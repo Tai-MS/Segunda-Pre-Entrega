@@ -1,3 +1,6 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <h1>Products: </h1>
 <style>
     td, th {
@@ -80,6 +83,11 @@
 </form>
 
 <div class="response-container" id="response-container"></div>
+
+<form method="POST" action="/api/session/logout" >
+
+    <button type="submit">Logout</button>
+</form>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/products.js"></script>

@@ -7,6 +7,7 @@ const page = urlParams.get('page');
 const category = urlParams.get('category')
 const status = urlParams.get('status')
 const limit = urlParams.get('limit')
+const username = urlParams.get('username')
 
 if(sort === 'asc'){
     queryParams.sort = 'asc'
@@ -40,6 +41,17 @@ socket.emit('getProducts', queryParams);
 
 socket.on('productsResponse', (response) => {
     if (response.result === 'success') {
+        if(username === "Coder"){
+            Swal.fire({
+                icon: "success",
+                title: `Bienvenido administrador ${username}`
+            })
+        }else if(username !== null){
+            Swal.fire({
+                icon: "success",
+                title: `Bienvenido ${username}`
+            })
+        }
         updateTable(response.payload.docs);
         updatePagination(response.payload);
         if (response.payload.page) {
@@ -114,7 +126,6 @@ function updatePagination(data) {
                 status: queryParams.status,
                 page: prevPage
             };
-            console.log(page);
             socket.emit('getProducts', filters);
         }
     });
@@ -133,7 +144,6 @@ function updatePagination(data) {
             socket.emit('getProducts', filters);
         }
     });
-console.log("POST "+data.nextPage);
     if (!data.hasPrevPage) {
         prevButton.disabled = true;
     } else {

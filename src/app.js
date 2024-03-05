@@ -4,18 +4,21 @@ import handlebars from 'express-handlebars'
 import path from 'path'
 import { Server } from 'socket.io'
 import { mongoose } from 'mongoose'
+import MongoStore from 'connect-mongo'
+import cookieParser from 'cookie-parser'
+import session from 'express-session'
 
 //Internal imports
 import __dirname from './utils.js'
 import productsRouter from './routes/products.router.js'
 import cartsRouter from './routes/carts.router.js'
 import chatRouter from './routes/chat.router.js'
-import chatManager from './DAO/DBManagers/chat.manager.js'
+import sessionRouter from './routes/session.router.js'
+import viewsRouter from './routes/views.router.js'
 
+import chatManager from './DAO/DBManagers/chat.manager.js'
 import productsManager from './DAO/DBManagers/products.manager.js'
 import cartsManager from './DAO/DBManagers/carts.manager.js'
-import { Socket } from 'dgram'
-import { error } from 'console'
 
 const app = express()
 const PORT = 8080
@@ -30,6 +33,30 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'hbs')
 app.use(express.static(path.join(__dirname, '/public')))
 
+//File Storage
+app.use(cookieParser("myParser"));
+
+const connectDb = async () => {
+  try {
+    await mongoose.connect("mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eCommerce2?retryWrites=true&w=majority");
+    console.log("Base de datos conectada");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+app.use(
+  session({
+      store: MongoStore.create({
+          mongoUrl: "mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eCommerce2?retryWrites=true&w=majority",
+          ttl: 15,
+        }),
+        secret: "coderhouse",
+        resave: false,
+        saveUninitialized: false,
+    }),
+);
+
 //Mongo DB 
 mongoose.connect("mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eCommerce2?retryWrites=true&w=majority")
     .then(() => {
@@ -40,9 +67,11 @@ mongoose.connect("mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eComm
     })
 
 //Routes
-app.use('/api/products', productsRouter)
-app.use('/api/carts', cartsRouter)
-app.use('/chat', chatRouter)
+app.use('/', productsRouter)
+app.use('/', cartsRouter)
+app.use('/', chatRouter)
+app.use("/", viewsRouter);
+app.use("/api/session", sessionRouter);
 
 //Server
 const httpServer = app.listen(PORT, () => {
@@ -110,7 +139,7 @@ socketServer.on('connect', async socket => {
                 query.category, 
                 query.page, 
                 query.limit, 
-                query.status
+                query.status,
             );
             socket.emit('productsResponse', { 
                 result: 'success', 
@@ -162,4 +191,4 @@ socketServer.on('connect', async socket => {
     })
 })
 
-
+connectDb();
