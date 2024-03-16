@@ -7,7 +7,6 @@ import { mongoose } from 'mongoose'
 import MongoStore from 'connect-mongo'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
-import passport from 'passport'
 
 //Internal imports
 import initializePassport from './config/passport.config.js'
@@ -72,9 +71,9 @@ mongoose.connect("mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eComm
     })
 
 //Routes
-// app.use('/', productsRouter)
-// app.use('/', cartsRouter)
-// app.use('/', chatRouter)
+app.use('/products', productsRouter)
+app.use('/carts', cartsRouter)
+app.use('/chat', chatRouter)
 app.use("/", viewsRouter);
 app.use("/api/sessions", sessionRouter);
 
