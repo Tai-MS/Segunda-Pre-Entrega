@@ -7,8 +7,10 @@ import { mongoose } from 'mongoose'
 import MongoStore from 'connect-mongo'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import passport from 'passport'
 
 //Internal imports
+import initializePassport from './config/passport.config.js'
 import __dirname from './utils.js'
 import productsRouter from './routes/products.router.js'
 import cartsRouter from './routes/carts.router.js'
@@ -33,7 +35,22 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'hbs')
 app.use(express.static(path.join(__dirname, '/public')))
 
-//File Storage
+//Passport y express-sessions
+initializePassport()
+app.use(session({
+    secret:'secret',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: "mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eCommerce2?retryWrites=true&w=majority",
+        ttl: 15,
+      }),
+      secret: "coderhouse",
+      resave: false,
+      saveUninitialized: false,
+    
+}))
+
 app.use(cookieParser("myParser"));
 
 const connectDb = async () => {
@@ -45,18 +62,6 @@ const connectDb = async () => {
   }
 };
 
-app.use(
-  session({
-      store: MongoStore.create({
-          mongoUrl: "mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eCommerce2?retryWrites=true&w=majority",
-          ttl: 15,
-        }),
-        secret: "coderhouse",
-        resave: false,
-        saveUninitialized: false,
-    }),
-);
-
 //Mongo DB 
 mongoose.connect("mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eCommerce2?retryWrites=true&w=majority")
     .then(() => {
@@ -67,11 +72,11 @@ mongoose.connect("mongodb+srv://taiel:hola123@cluster0.jawvxzu.mongodb.net/eComm
     })
 
 //Routes
-app.use('/', productsRouter)
-app.use('/', cartsRouter)
-app.use('/', chatRouter)
+// app.use('/', productsRouter)
+// app.use('/', cartsRouter)
+// app.use('/', chatRouter)
 app.use("/", viewsRouter);
-app.use("/api/session", sessionRouter);
+app.use("/api/sessions", sessionRouter);
 
 //Server
 const httpServer = app.listen(PORT, () => {

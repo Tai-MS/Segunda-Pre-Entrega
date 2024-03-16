@@ -7,7 +7,28 @@ const page = urlParams.get('page');
 const category = urlParams.get('category')
 const status = urlParams.get('status')
 const limit = urlParams.get('limit')
-const username = urlParams.get('username')
+const usernameCookie = document.cookie.split(';').map(cookie => cookie.trim());
+const roleCookie = document.cookie.split(';').map(cookie => cookie.trim());
+
+let role;
+for (const cookie of roleCookie) {
+    const [name, value] = cookie.split('=');
+    if (name === 'role') {
+        role = value;
+        break;
+    }
+}
+const decodedValue = decodeURIComponent(role);
+const parts = decodedValue.split('.');
+
+let username;
+    usernameCookie.forEach(cookie => {
+    const [name, value] = cookie.split('=');
+    if (name === 'username') {
+        username = value;
+    }
+});
+
 
 if(sort === 'asc'){
     queryParams.sort = 'asc'
@@ -41,15 +62,15 @@ socket.emit('getProducts', queryParams);
 
 socket.on('productsResponse', (response) => {
     if (response.result === 'success') {
-        if(username === "Coder"){
+        if(parts[0].split(':')[1] === "admin"){
             Swal.fire({
                 icon: "success",
-                title: `Bienvenido administrador ${username}`
+                title: `Welcome ${username}, you signed in as admin.`
             })
         }else if(username !== null){
             Swal.fire({
                 icon: "success",
-                title: `Bienvenido ${username}`
+                title: `Welcome ${username}`
             })
         }
         updateTable(response.payload.docs);
